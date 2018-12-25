@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>EEPROM Arduino Library, Non-volatile data storage</title>
+<!-- base href="https://www.pjrc.com/teensy/td_libs_EEPROM.html" -->
+<link rel="shortcut icon" href="https://www.pjrc.com/favicon.ico">
+<link rel="icon" href="https://www.pjrc.com/favicon.ico">
+<link rel="stylesheet" href="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/style.css" type="text/css">
+<meta name="MSSmartTagsPreventParsing" content="TRUE">
+<link rel="stylesheet" href="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/td_libs.css" type="text/css">
+</head>
+<body text="#000000" vlink="#202080" link="#0000D0" bgcolor="#FFFFFF">
+<!--nav begin-->
+<!--htdig_noindex-->
+<table width="100%" cellspacing="2" cellpadding="0">
+<tbody><tr><td rowspan="2" align="left">
+<table width="312" cellspacing="0" cellpadding="0">
+<tbody><tr><td align="right">
+<a href="#navend"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/1x1.gif" alt="skip navigational links" width="1" vspace="0" hspace="0" height="10" border="0"></a><a href="https://www.pjrc.com/"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/logo.gif" alt="PJRC" width="276" height="31" border="0"></a></td></tr>
+</tbody></table>
+</td><td align="right" valign="top">
+</td></tr>
+<tr><td align="right" valign="bottom">
+<small>
+<a href="https://www.pjrc.com/cgi-bin/store/step1">Shopping&nbsp;Cart</a>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" align="middle" width="10" height="10">
+<a href="https://www.pjrc.com/cgi-bin/store/step2">Checkout</a>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" align="middle" width="10" height="10">
+<a href="https://www.pjrc.com/cgi-bin/store/shipcost">Shipping&nbsp;Cost</a>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" align="middle" width="10" height="10">
+<a href="https://www.pjrc.com/cgi-bin/archive/summary">Download&nbsp;Website</a>
+</small>
+</td></tr></tbody></table>
+<table width="100%" cellspacing="0" cellpadding="6" border="0">
+<tbody><tr bgcolor="#D0E0FF">
+<td align="center"><a href="https://www.pjrc.com/">Home</a></td>
+<td align="center"><a href="https://www.pjrc.com/store/">Products</a></td>
+<td align="center"><a href="https://www.pjrc.com/teensy/">Teensy</a></td>
+<td align="center"><a href="https://www.pjrc.com/blog/">Blog</a></td>
+<td align="center"><a href="https://forum.pjrc.com/">Forum</a></td>
+</tr></tbody></table>
+<table width="100%" cellspacing="0" cellpadding="2">
+<tbody><tr bgcolor="#F0F0F0"><td align="left">
+<small>You are here:
+<a href="https://www.pjrc.com/teensy/">Teensy</a>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/b.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/teensyduino.html">Teensyduino</a>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/b.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs.html">Libraries</a>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/b.gif" alt="" width="10" height="10">
+<span style="background-color: #B0E4A8">EEPROM</span>
+</small></td><td align="right">
+<!-- <small><a href="/search/">Search PJRC</a></small>
+ -->
+</td></tr></tbody></table>
+<p>
+</p><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr><td width="172" valign="top">
+<table width="172" cellspacing="0" cellpadding="6" border="0">
+<tbody><tr><td align="center" bgcolor="#D0E0FF">
+<big><b>PJRC Store</b></big>
+</td></tr>
+<tr><td bgcolor="#F0F0F0">
+<small>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" align="middle" width="10" height="10">
+<a href="https://www.pjrc.com/store/teensy36.html">Teensy 3.6, $29.25</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" align="middle" width="10" height="10">
+<a href="https://www.pjrc.com/store/teensy35.html">Teensy 3.5, $24.25</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" align="middle" width="10" height="10">
+<a href="https://www.pjrc.com/store/teensy32.html">Teensy 3.2, $19.80</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" align="middle" width="10" height="10">
+<a href="https://www.pjrc.com/store/teensylc.html">Teensy LC, $11.65</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" align="middle" width="10" height="10">
+<a href="https://www.pjrc.com/store/teensy.html">Teensy 2.0, $16.00</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" align="middle" width="10" height="10">
+<a href="https://www.pjrc.com/store/teensypp.html">Teensy++ 2.0, $24.00</a><br>
+</small></td></tr>
+<tr><td height="15"></td></tr>
+<tr><td align="center" bgcolor="#D0E0FF">
+<big><b>Teensy</b></big>
+</td></tr>
+<tr><td bgcolor="#F0F0F0">
+<small>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/index.html">Main Page</a><br>
+<a href="https://www.pjrc.com/teensy/techspecs.html"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/c.gif" alt="" width="10" height="10" border="0">
+<b>Hardware</b></a><br>
+<a href="https://www.pjrc.com/teensy/first_use.html"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/c.gif" alt="" width="10" height="10" border="0">
+<b>Getting Started</b></a><br>
+<a href="https://www.pjrc.com/teensy/tutorial.html"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/c.gif" alt="" width="10" height="10" border="0">
+<b>Tutorial</b></a><br>
+<a href="https://www.pjrc.com/teensy/pins.html"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/c.gif" alt="" width="10" height="10" border="0">
+<b>How-To Tips</b></a><br>
+<a href="https://www.pjrc.com/teensy/usb_debug_only.html"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/c.gif" alt="" width="10" height="10" border="0">
+<b>Code Library</b></a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/projects.html">Projects</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/b.gif" alt="" width="10" height="10">
+<b>Teensyduino</b><br>
+</small>
+<div style="padding-left: 1.2em">
+<small>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/teensyduino.html">Main</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_download.html">Download+Install</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_usage.html">Basic Usage</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_digital.html">Digital I/O</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_pulse.html">PWM &amp; Tone</a><br>
+<a href="https://www.pjrc.com/teensy/td_timing.html"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/c.gif" alt="" width="10" height="10" border="0">
+<b>Timing</b></a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_serial.html">USB Serial</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_keyboard.html">USB Keyboard</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_mouse.html">USB Mouse</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_joystick.html">USB Joystick</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_midi.html">USB MIDI</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_flightsim.html">USB Flight Sim</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_uart.html">Serial</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/b.gif" alt="" width="10" height="10">
+<b>Libraries</b><br>
+</small>
+<div style="padding-left: 1.2em">
+<small>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs.html">Main List</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_GLCD.html">GLCD</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_LiquidCrystal.html">LiquidCrystal</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_OctoWS2811.html">OctoWS2811</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_FastSPI_LED.html">FastSPI_LED</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Matrix.html">Matrix/Sprite</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_LedDisplay.html">LedDisplay</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_LedControl.html">LedControl</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_DogLcd.html">DogLcd</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_ST7565.html">ST7565</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_AltSoftSerial.html">AltSoftSerial</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_NewSoftSerial.html">NewSoftSerial</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_SoftwareSerial.html">SoftwareSerial</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_MIDI.html">MIDI</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_PS2Keyboard.html">PS2Keyboard</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_DmxSimple.html">DmxSimple</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Firmata.html">Firmata</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Wire.html">Wire</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_SPI.html">SPI</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_OneWire.html">OneWire</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_XBee.html">XBee</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_VirtualWire.html">VirtualWire</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_x10.html">X10</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_IRremote.html">IRremote</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_TinyGPS.html">TinyGPS</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_USBHostShield.html">USBHostShield</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Ethernet.html">Ethernet</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Bounce.html">Bounce</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Keypad.html">Keypad</a><br>
+<a href="https://www.pjrc.com/teensy/td_libs_Audio.html"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/c.gif" alt="" width="10" height="10" border="0">
+<b>Audio</b></a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Encoder.html">Encoder</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Ping.html">Ping</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_CapacitiveSensor.html">CapacitiveSensor</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_FreqCount.html">FreqCount</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_FreqMeasure.html">FreqMeasure</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Servo.html">Servo</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_PulsePosition.html">PulsePosition</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Stepper.html">Stepper</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_AccelStepper.html">AccelStepper</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_FrequencyTimer2.html">FrequencyTimer2</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Tlc5940.html">Tlc5940</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_SoftPWM.html">SoftPWM</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_ShiftPWM.html">ShiftPWM</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Time.html">Time</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_TimeAlarms.html">TimeAlarms</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_DS1307RTC.html">DS1307RTC</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_Metro.html">Metro</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_TimerOne.html">TimerOne</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/a.gif" alt="" width="10" height="10">
+<a href="https://www.pjrc.com/teensy/td_libs_MsTimer2.html">MsTimer2</a><br>
+<img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/b.gif" alt="selected" width="10" height="10">
+<span style="background-color: #B0E4A8">EEPROM</span><br>
+</small>
+</div>
+<small>
+</small>
+</div>
+<small>
+<a href="https://www.pjrc.com/teensy/pinout.html"><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/c.gif" alt="" width="10" height="10" border="0">
+<b>Reference</b></a><br>
+</small></td></tr>
+<tr><td height="60"></td></tr>
+</tbody></table><br>
+<a name="navend"> </a>
+</td>
+<td width="18"></td>
+<td valign="top">
+<!--/htdig_noindex-->
+<!--nav end-->
+
+
+<h1>EEPROM Library</h1>
+
+EEPROM allows you to permanently store small amounts of data, which is very
+useful for saving settings, collecting small data sets, or any other use
+where you need to retain data even if the power is turned off.
+<p>
+<b>Download</b>: EEPROM is included with Arduino
+
+</p><h2>Hardware Requirements</h2>
+
+All Teensy boards have EEPROM memory build inside the chip.  No extra
+hardware is required.  The demo program reads an analog voltage and
+stores it into EEPROM, so a trim pot was connected to analog input A0.
+<p>
+</p><center><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/td_libs_EEPROM_1.jpg"></center>
+<p>
+Each Teensy has a different amount of EEPROM memory available.
+</p><p>
+</p><table align="center">
+<tbody><tr class="top"><th>Board</th><th>EEPROM Size</th></tr>
+<tr class="odd"><td>Teensy 3.6</td><td align="center">4096 bytes</td></tr>
+<tr class="odd"><td>Teensy 3.5</td><td align="center">4096 bytes</td></tr>
+<tr class="odd"><td>Teensy 3.2</td><td align="center">2048 bytes</td></tr>
+<tr class="odd"><td>Teensy 3.1</td><td align="center">2048 bytes</td></tr>
+<tr class="odd"><td>Teensy 3.0</td><td align="center">2048 bytes</td></tr>
+<tr class="odd"><td>Teensy LC</td><td align="center">128 bytes</td></tr>
+<tr class="odd"><td>Teensy++ 2.0</td><td align="center">4096 bytes</td></tr>
+<tr class="odd"><td>Teensy 2.0</td><td align="center">1024 bytes</td></tr>
+<tr class="odd"><td>Teensy++ 1.0</td><td align="center">2048 bytes</td></tr>
+<tr class="odd"><td>Teensy 1.0</td><td align="center">512 bytes</td></tr>
+</tbody></table>
+<p>
+Teensy 3.6 can not write to EEPROM memory when running faster than 120 MHz.
+The EEPROM library will automatically reduce the processor's speed during
+the time EEPROM data is written.  If using Serial1 or Serial2, communication
+may be disrupted due to baud rate changes.  Other serial ports are not
+affected by the temporary speed change during EEPROM writing.
+</p><p>
+
+
+</p><p>
+
+
+</p><h2>Basic Usage</h2>
+
+<span style="color: #CC6600;">EEPROM</span>.<span style="color: #CC6600;">read</span>(address)
+<p class="desc">
+Read a byte (0 to 255) from the EEPROM.  Address is the location within
+the EEPROM.
+</p>
+
+<span style="color: #CC6600;">EEPROM</span>.<span style="color: #CC6600;">write</span>(address, data)
+<p class="desc">
+Write a byte (0 to 255) to the EEPROM.  Address is the location to store the
+byte, and data is the number to store.
+</p>
+
+Address can range from 0 to the EEPROM size minus 1.  For a Teensy 2.0, Address can
+be 0 to 1023, for a total of 1024 unique bytes that can be stored in the EEPROM.
+
+
+<h2>Example Program</h2>
+
+The examples can be opened from the <b>File -&gt; Examples -&gt; EEPROM</b> menu.
+<p>
+The Write example was run while slowly turning the trim pot counter clockwise, where
+it wrote decreasing numbers into the EEPROM.  Then the Read example was run, producing this output:
+</p><p>
+</p><center><img src="EEPROM%20Arduino%20Library,%20Non-volatile%20data%20storage_files/td_libs_EEPROM_2.png"></center>
+<p>
+</p><pre><span style="color: #7E7E7E;">/*&nbsp;EEPROM&nbsp;Read</span>
+<span style="color: #7E7E7E;">&nbsp;*</span>
+<span style="color: #7E7E7E;">&nbsp;*&nbsp;Reads&nbsp;the&nbsp;value&nbsp;of&nbsp;each&nbsp;byte&nbsp;of&nbsp;the&nbsp;EEPROM&nbsp;and&nbsp;prints&nbsp;it&nbsp;</span>
+<span style="color: #7E7E7E;">&nbsp;*&nbsp;to&nbsp;the&nbsp;computer.</span>
+<span style="color: #7E7E7E;">&nbsp;*/</span>
+
+#include&nbsp;&lt;<span style="color: #CC6600;">EEPROM</span>.h&gt;
+
+<span style="color: #7E7E7E;">//&nbsp;start&nbsp;reading&nbsp;from&nbsp;the&nbsp;first&nbsp;byte&nbsp;(address&nbsp;0)&nbsp;of&nbsp;the&nbsp;EEPROM</span>
+<span style="color: #CC6600;">int</span> address = 0;
+<span style="color: #CC6600;">byte</span> value;
+
+<span style="color: #CC6600;">void</span> <span style="color: #CC6600;"><b>setup</b></span>()
+{
+&nbsp;&nbsp;<span style="color: #CC6600;"><b>Serial</b></span>.<span style="color: #CC6600;">begin</span>(9600);
+}
+
+<span style="color: #CC6600;">void</span> <span style="color: #CC6600;"><b>loop</b></span>()
+{
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// read a byte from the current address of the EEPROM</span>
+&nbsp;&nbsp;value&nbsp;=&nbsp;<span style="color: #CC6600;">EEPROM</span>.<span style="color: #CC6600;">read</span>(address);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #CC6600;"><b>Serial</b></span>.<span style="color: #CC6600;">print</span>(address);
+&nbsp;&nbsp;<span style="color: #CC6600;"><b>Serial</b></span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">"\t"</span>);
+&nbsp;&nbsp;<span style="color: #CC6600;"><b>Serial</b></span>.<span style="color: #CC6600;">print</span>(value, <span style="color: #006699;">DEC</span>);
+&nbsp;&nbsp;<span style="color: #CC6600;"><b>Serial</b></span>.<span style="color: #CC6600;">println</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// advance to the next address of the EEPROM</span>
+&nbsp;&nbsp;address&nbsp;=&nbsp;address&nbsp;+&nbsp;1;
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// there are only 512 bytes of EEPROM, from 0 to 511, so if we're</span>
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// on address 512, wrap around to address 0</span>
+&nbsp;&nbsp;<span style="color: #CC6600;">if</span> (address == 512)
+&nbsp;&nbsp;&nbsp;&nbsp;address&nbsp;=&nbsp;0;
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// Teensy 1.0 has 512 bytes</span>
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// Teensy 2.0 has 1024 bytes</span>
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// Teensy++ 1.0 has 2048 bytes</span>
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// Teensy++ 2.0 has 4096 bytes</span>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #CC6600;">delay</span>(500);
+}
+</pre>
+
+
+<h2>EEPROM Write Endurance</h2>
+
+The EEPROM is specified with a write endurance of 100,000 cycles.  Each time you write,
+the memory is stressed, and eventually it will become less reliable.  It's guaranteed
+to work for at least 100,000 writes, and will very likely work for many more.
+Normally this limit is not an issue if you write to the EEPROM infrequently.
+<p>
+The 100,000 writes apply to each address separately.  For example, if you write to address
+0 many times, only that address has been stressed.  Address 1, 2, 3, etc would not be
+stressed by writing to address 0.  If you do write data quickly, you can prolong the
+life of the EEPROM by cycling through all addresses in sequence.
+</p><p>
+Reading does not stress the EEPROM.  Only writes count for the write endurance.
+
+<!--
+<h2>How EEPROM Works</h2>
+
+Each bit in the EEPROM is made with a transistor.  If the transistor is turned off, the
+bit will read 1, and if it's been turned on, the bit will read 0.
+
+TODO: floating gate, tunnelling to turn on the transistor... erase cycles....
+-->
+
+
+</p><h2>More Details</h2>
+
+Please refer to the <a href="http://arduino.cc/en/Reference/EEPROM">official EEPROM library documentation</a>
+for more details.
+
+
+
+</td></tr></tbody></table>
+</body></html>
