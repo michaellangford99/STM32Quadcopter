@@ -73,8 +73,8 @@ void arm();
 
 // the setup function runs once when you press reset or power the board
 void setup() {
-	Serial1.begin(9600);
-	Serial1.clear();
+	Serial.begin(9600);
+	Serial.clear();
 
 	//init debug helper
 	init_Debug();
@@ -279,17 +279,17 @@ void loop() {
 	//////        display        ///////
 	//////                       ///////
 	count++;
-	if (count > 90)
+	if (count > 180)
 	{
 		count = 0;
-		//Serial1.printf("%f, %f, %f, %f", motor_output[0], motor_output[1], motor_output[2], motor_output[3]);
-		//Serial1.printf(", %f, %f, %f", GetYaw(), GetPitch(), GetRoll());
-		Serial1.printf("%f, ", 1.0f / ((loop_time - l_loop_time) / 1000000.0f));
+		//Serial.printf("%f, %f, %f, %f", motor_output[0], motor_output[1], motor_output[2], motor_output[3]);
+		//Serial.printf(", %f, %f, %f", GetYaw(), GetPitch(), GetRoll());
+		Serial.printf("%f, ", 1.0f / ((loop_time - l_loop_time) / 1000000.0f));
 
-		//Serial1.printf("%f, %f, %f, 00, %f, %f, %f, 00, %d, %d, %d\n", GetYaw(), GetPitch(), GetRoll(), get_cal_x(), get_cal_y(), get_cal_z(), getX(), getY(), getZ());
-		//Serial1.printf("%f, %f, ", Get_Acc_Pitch(), Get_Acc_Roll());
-		//Serial1.printf("%f, %f, %f, %f, ", GetChannel(THROTTLE), GetChannel(RUD_YAW), GetChannel(AIL_ROLL), GetChannel(ELEV_PITCH));
-		Serial1.printf("%f, %f\n", GetRoll(), GetPitch());
+		//Serial.printf("%f, %f, %f, 00, %f, %f, %f, 00, %d, %d, %d\n", GetYaw(), GetPitch(), GetRoll(), get_cal_x(), get_cal_y(), get_cal_z(), getX(), getY(), getZ());
+		//Serial.printf("%f, %f, ", Get_Acc_Pitch(), Get_Acc_Roll());
+		//Serial.printf("%f, %f, %f, %f, ", GetChannel(THROTTLE), GetChannel(RUD_YAW), GetChannel(AIL_ROLL), GetChannel(ELEV_PITCH));
+		Serial.printf("%f, %f\n", GetRoll(), GetPitch());
 	}
 	l_loop_time = loop_time;
 }

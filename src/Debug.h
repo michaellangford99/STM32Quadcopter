@@ -12,7 +12,6 @@
 void init_Debug();
 void update_Debug_SAFE();
 void update_Debug_ARMED();
-void debug_flash();
 
 #endif
 
