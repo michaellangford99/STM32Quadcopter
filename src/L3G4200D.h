@@ -12,7 +12,7 @@
 
 #include <SPI.h>
 
-#define CLOCK_SPEED                2000000
+#define CLOCK_SPEED                200000
 #define CALIBRATE_TIME             1000
 
 float GetYaw();
