@@ -88,12 +88,16 @@ float get_percent(int pulse)
 //interrupt method, called each time a pulse occurs
 void interrupt_method()
 {
+	//roll over
+	if (offset == CHANNELS)
+		offset = 0;
+
 	time[offset] = micros() - last_time;
 	last_time = micros();
 
 	offset++;
 	
-	//roll over
+	//check roll over again
 	if (offset == CHANNELS)
 		offset = 0;
 }
