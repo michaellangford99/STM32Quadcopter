@@ -79,7 +79,7 @@ void setup() {
 	//init debug helper
 	init_Debug();
 
-	init_LIS3DH();
+	//init_LIS3DH();
 	init_L3G4200D();
 	init_RadioReciever();
 	init_motors();
@@ -90,9 +90,9 @@ void setup() {
 	PitchPID.init_PID();
 	RollPID.init_PID();
 
-	YawPID.Set_Constants  (0.1f, 0.0f, 1200.0f);
-	PitchPID.Set_Constants(0.59f, 0.0f, 600.0f);
-	RollPID.Set_Constants (0.59f, 0.0f, 600.0f);
+	YawPID.Set_Constants  (0.00f, 0.0f, 1200.0f);
+	PitchPID.Set_Constants(0.59f, 0.0f, 1200.0f);
+	RollPID.Set_Constants (0.59f, 0.0f, 1200.0f);
 
 	/*//init kalman filters
 
@@ -279,10 +279,10 @@ void loop() {
 	//////        display        ///////
 	//////                       ///////
 	count++;
-	if (count > 180)
+	if (count > 100)
 	{
 		count = 0;
-		//Serial.printf("%f, %f, %f, %f", motor_output[0], motor_output[1], motor_output[2], motor_output[3]);
+		Serial.printf("%f, %f, %f, %f, ", motor_output[0], motor_output[1], motor_output[2], motor_output[3]);
 		//Serial.printf(", %f, %f, %f", GetYaw(), GetPitch(), GetRoll());
 		Serial.printf("%f, ", 1.0f / ((loop_time - l_loop_time) / 1000000.0f));
 
