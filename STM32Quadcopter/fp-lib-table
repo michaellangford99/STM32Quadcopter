@@ -1,4 +1,0 @@
-(fp_lib_table
-  (lib (name teensy_library-master)(type KiCad)(uri C:/Users/Michael/Downloads/teensy_library-master/teensy_library-master)(options "")(descr ""))
-  (lib (name teensy)(type KiCad)(uri C:/Users/Michael/Downloads/teensy.pretty-master/teensy.pretty-master)(options "")(descr ""))
-)
