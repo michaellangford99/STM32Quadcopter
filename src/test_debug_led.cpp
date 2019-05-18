@@ -1,5 +1,7 @@
 #include "Wprogram.h"
 #include "Debug.h"
+#include "unit_tests.h"
+#ifdef TEST_DEBUG_LED
 
 /*void test_led_state_high(void) {
     digitalWrite(LED_BUILTIN, HIGH);
@@ -31,3 +33,5 @@ void loop() {
 
     delay(500);
 }
+
+#endif

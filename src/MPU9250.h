@@ -1,5 +1,5 @@
 
-// L3G4200D
+// MPU9250
 
 #ifndef _MPU9250_h
 #define _MPU9250_h
@@ -12,10 +12,9 @@
 
 #include <SPI.h>
 
-#define CLOCK_SPEED                1000000
-#define CALIBRATE_TIME             1000
-
 void init_MPU9250();
 void update_MPU9250_h();
+
+int readWHOAMI();
 
 #endif

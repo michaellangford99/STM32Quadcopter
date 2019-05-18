@@ -1,5 +1,5 @@
 /*
-Name:		L3G4200D.ino
+Name:		L3G4200D.cpp
 Created:	5/25/2017 12:53 PM
 Author:	Michael Langford
 */

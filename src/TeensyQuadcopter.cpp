@@ -30,6 +30,10 @@ prop3      prop4
 #include "Debug.h"
 #include "wiring.h"
 
+#include "unit_tests.h"
+
+#ifdef TEENSYQUADCOPTER
+
 #define THROTTLE_THRESHOLD 1.5f
 
 #define THROTTLE_UNLOCK   -90.0f
@@ -332,3 +336,5 @@ void arm()
 		}
 	}
 }
+
+#endif
