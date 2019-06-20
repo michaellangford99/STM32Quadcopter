@@ -4,6 +4,10 @@
 #ifndef _L3G4200D_h
 #define _L3G4200D_h
 
+//#define L3G4200D_IN_USE
+
+#ifdef L3G4200D_IN_USE
+
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "wprogram.h"
 #else
@@ -40,4 +44,5 @@ int16_t getX();
 int16_t getY();
 int16_t getZ();
 
+#endif
 #endif

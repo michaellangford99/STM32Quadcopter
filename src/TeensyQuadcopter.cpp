@@ -22,8 +22,7 @@ prop3      prop4
 */
 
 #include "WProgram.h"
-#include "LIS3DH.h"
-#include "L3G4200D.h"
+#include "MPU9250.h"
 #include "RadioReciever.h"
 #include "PID.h"
 #include "Motors.h"
@@ -31,7 +30,6 @@ prop3      prop4
 #include "wiring.h"
 
 #include "unit_tests.h"
-
 #ifdef TEENSYQUADCOPTER
 
 #define THROTTLE_THRESHOLD 1.5f
@@ -83,8 +81,7 @@ void setup() {
 	//init debug helper
 	init_Debug();
 
-	//init_LIS3DH();
-	init_L3G4200D();
+	init_MPU9250();
 	init_RadioReciever();
 	init_motors();
 

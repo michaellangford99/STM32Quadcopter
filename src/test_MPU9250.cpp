@@ -14,9 +14,7 @@ void setup() {
 }
 
 void loop() {
-    Serial.printf("MPU9250: WHO_AM_I = 0x%x\n", readWHOAMI());
-
-    delay(500);
+    update_MPU9250();
 }
 
 #endif

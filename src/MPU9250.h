@@ -13,8 +13,22 @@
 #include <SPI.h>
 
 void init_MPU9250();
-void update_MPU9250_h();
+void update_MPU9250();
 
-int readWHOAMI();
+//Gyroscope
+void UpdateGyro();
+
+float GetYaw();
+float GetPitch();
+float GetRoll();
+
+float GetYawRate();
+float GetPitchRate();
+float GetRollRate();
+
+//Accelerometer
+float GetXAcc();
+float GetYAcc();
+float GetZAcc();
 
 #endif

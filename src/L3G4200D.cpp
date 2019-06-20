@@ -6,6 +6,8 @@ Author:	Michael Langford
 
 #include "L3G4200D.h"
 
+#ifdef L3G4200D_IN_USE
+
 #define CNTRL_REG_4                0x23
 #define DPS500_4WIRESPI_CONTUPDT   0x10
 
@@ -37,8 +39,8 @@ float z = 0;
 
 float xr = 0.0f, yr = 0.0f, zr = 0.0f;
 
-int readRegister(byte address);
-void writeRegister(byte address, byte data);
+int readRegister_L3G4200D(byte address);
+void writeRegister_L3G4200D(byte address, byte data);
 
 float microseconds, lms;
 float seconds;
@@ -118,10 +120,10 @@ void init_L3G4200D() {
 	digitalWrite(10, HIGH);
 
 	BEGIN_SPI_GYRO();
-	writeRegister(CNTRL_REG_1, SPS400_25CUTTOFF);
-	writeRegister(CNTRL_REG_4, DPS500_4WIRESPI_CONTUPDT);
-	writeRegister(CNTRL_REG_2, HP_FILTER_MODE30);
-	writeRegister(CNTRL_REG_3, DATA_READY);
+	writeRegister_L3G4200D(CNTRL_REG_1, SPS400_25CUTTOFF);
+	writeRegister_L3G4200D(CNTRL_REG_4, DPS500_4WIRESPI_CONTUPDT);
+	writeRegister_L3G4200D(CNTRL_REG_2, HP_FILTER_MODE30);
+	writeRegister_L3G4200D(CNTRL_REG_3, DATA_READY);
 	END_SPI_GYRO();
 
 	Calibrate_Gyro();
@@ -136,7 +138,7 @@ void Calibrate_Gyro()
 	{
 		while (true)
 		{
-			if ((readRegister(0x27) & 8) == 8)
+			if ((readRegister_L3G4200D(0x27) & 8) == 8)
 				break;
 		}
 		cx += (float)getX();
@@ -178,21 +180,21 @@ void update_L3G4200D() {
 
 int16_t getX()
 {
-	int16_t xval = (int16_t)(((readRegister(0x29) & 0xFF) << 8) | (readRegister(0x28) & 0xFF));
+	int16_t xval = (int16_t)(((readRegister_L3G4200D(0x29) & 0xFF) << 8) | (readRegister_L3G4200D(0x28) & 0xFF));
 	return xval;
 }
 
 int16_t getY()
 {
-	return (int16_t)(((readRegister(0x2B) & 0xFF) << 8) | (readRegister(0x2A) & 0xFF));
+	return (int16_t)(((readRegister_L3G4200D(0x2B) & 0xFF) << 8) | (readRegister_L3G4200D(0x2A) & 0xFF));
 }
 
 int16_t getZ()
 {
-	return (int16_t)(((readRegister(0x2D) & 0xFF) << 8) | (readRegister(0x2C) & 0xFF));
+	return (int16_t)(((readRegister_L3G4200D(0x2D) & 0xFF) << 8) | (readRegister_L3G4200D(0x2C) & 0xFF));
 }
 
-int readRegister(byte address)
+int readRegister_L3G4200D(byte address)
 {
 	digitalWrite(GYRO_CS, LOW);
 	int toRead;
@@ -205,7 +207,7 @@ int readRegister(byte address)
 	return toRead;
 }
 
-void writeRegister(byte address, byte data)
+void writeRegister_L3G4200D(byte address, byte data)
 {
 	digitalWrite(GYRO_CS, LOW);
 	address &= 0x7F;
@@ -213,3 +215,5 @@ void writeRegister(byte address, byte data)
 	SPI.transfer(data); 
 	digitalWrite(GYRO_CS, HIGH);
 }
+
+#endif
