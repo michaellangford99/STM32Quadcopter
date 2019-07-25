@@ -104,15 +104,9 @@ void setup() {
 	//calibrate and load initial values
 	//
 
-	Calibrate_Accelerometer();
-
 	ClearAngles(0.0f, 0.0f, 0.0f);
 
-	Calibrate_Gyro();
-
-	//delay(100);
 	yaw_angle = 0.0f;
-
 	main_pitch = 0.0f;
 	main_roll = 0.0f;
 
@@ -120,7 +114,7 @@ void setup() {
 	roll_kalman.init_Kalman();*/
 
 	ClearAngles(0.0f, 0.0f, 0.0f);
-	update_L3G4200D();
+	update_MPU9250();
 	ClearAngles(0.0f, 0.0f, 0.0f);
 }
 
@@ -133,7 +127,7 @@ void loop() {
 
 	//update sensors and radio		
 	//update_LIS3DH();
-	update_L3G4200D();
+	update_MPU9250();
 	update_RadioReciever();
 
 	/*//Kalman Filter
@@ -213,7 +207,7 @@ void loop() {
 		//update PID loops
 		yaw_angle += GetChannel(RUD_YAW) / 1500.0f;
 		yaw_out = YawPID.update_PID(GetYaw(), yaw_angle);
-		pitch_out = PitchPID.update_PID(main_pitch, GetChannel(ELEV_PITCH) / 4.0f);
+		pitch_out = PitchPID.update_PID(main_pitch, -GetChannel(ELEV_PITCH) / 4.0f);
 		roll_out = RollPID.update_PID(main_roll, GetChannel(AIL_ROLL) / 4.0f);
 
 		//update motor values
@@ -232,15 +226,15 @@ void loop() {
 		motor_output[2] = throttle_out;
 		motor_output[3] = throttle_out;
 
-		motor_output[0] += -yaw_out;
-		motor_output[1] += yaw_out;
-		motor_output[2] += yaw_out;
-		motor_output[3] += -yaw_out;
+		motor_output[0] += yaw_out;
+		motor_output[1] += -yaw_out;
+		motor_output[2] += -yaw_out;
+		motor_output[3] += yaw_out;
 
-		motor_output[0] += -pitch_out;
-		motor_output[1] += -pitch_out;
-		motor_output[2] += pitch_out;
-		motor_output[3] += pitch_out;
+		motor_output[0] += pitch_out;
+		motor_output[1] += pitch_out;
+		motor_output[2] += -pitch_out;
+		motor_output[3] += -pitch_out;
 
 		motor_output[0] += -roll_out;
 		motor_output[1] += roll_out;
@@ -283,14 +277,14 @@ void loop() {
 	if (count > 100)
 	{
 		count = 0;
-		Serial.printf("%f, %f, %f, %f, ", motor_output[0], motor_output[1], motor_output[2], motor_output[3]);
-		//Serial.printf(", %f, %f, %f", GetYaw(), GetPitch(), GetRoll());
-		Serial.printf("%f, ", 1.0f / ((loop_time - l_loop_time) / 1000000.0f));
+		//Serial.printf("%f, %f, %f, %f, ", motor_output[0], motor_output[1], motor_output[2], motor_output[3]);
+		Serial.printf("%f, %f, %f\n", GetYaw(), GetPitch(), GetRoll());
+		//Serial.printf("%f, ", 1.0f / ((loop_time - l_loop_time) / 1000000.0f));
 
 		//Serial.printf("%f, %f, %f, 00, %f, %f, %f, 00, %d, %d, %d\n", GetYaw(), GetPitch(), GetRoll(), get_cal_x(), get_cal_y(), get_cal_z(), getX(), getY(), getZ());
 		//Serial.printf("%f, %f, ", Get_Acc_Pitch(), Get_Acc_Roll());
 		//Serial.printf("%f, %f, %f, %f, ", GetChannel(THROTTLE), GetChannel(RUD_YAW), GetChannel(AIL_ROLL), GetChannel(ELEV_PITCH));
-		Serial.printf("%f, %f\n", GetRoll(), GetPitch());
+		//Serial.printf("%f, %f\n", GetRoll(), GetPitch());
 	}
 	l_loop_time = loop_time;
 }
@@ -307,11 +301,9 @@ void arm()
 				{
 					if (GetChannel(GEAR) > GEAR_SET)
 					{
-						Calibrate_Accelerometer();
-						
+						calibrate_Accelerometer();
+						calibrate_Gyro();
 						ClearAngles(0.0f, 0.0f, 0.0f);
-						
-						Calibrate_Gyro();
 
 						//delay(100);
 						yaw_angle = 0.0f;
@@ -323,7 +315,7 @@ void arm()
 						roll_kalman.init_Kalman();*/
 
 						ClearAngles(0.0f, 0.0f, 0.0f);
-						update_L3G4200D();
+						update_MPU9250();
 						ClearAngles(0.0f, 0.0f, 0.0f);
 						
 						safety = ARMED;

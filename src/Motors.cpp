@@ -12,10 +12,10 @@ Author:	Michael Langford
 #define PWM_BITS 16
 #define PWM_MULTIPLIER 65535.0f
 
-#define M1_PIN    3
-#define M2_PIN    4
-#define M3_PIN    6
-#define M4_PIN    5
+#define M1_PIN    6
+#define M2_PIN    3
+#define M3_PIN    5
+#define M4_PIN    4
 
 float m1, m2, m3, m4;
 

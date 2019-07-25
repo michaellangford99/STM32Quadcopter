@@ -16,7 +16,9 @@ void init_MPU9250();
 void update_MPU9250();
 
 //Gyroscope
-void UpdateGyro();
+void update_Gyro();
+
+void calibrate_Gyro();
 
 float GetYaw();
 float GetPitch();
@@ -26,7 +28,16 @@ float GetYawRate();
 float GetPitchRate();
 float GetRollRate();
 
+void ClearAngles(float yaw, float pitch, float roll);
+
 //Accelerometer
+void update_Accelerometer();
+
+void calibrate_Accelerometer();
+
+float GetPitchAcc();
+float GetRollAcc();
+
 float GetXAcc();
 float GetYAcc();
 float GetZAcc();

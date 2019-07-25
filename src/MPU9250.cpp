@@ -170,6 +170,10 @@ const float ACC_MULTIPLIER = 2.0f;
 
 #define END_SPI_MPU9250()          SPI.endTransaction();
 
+float microseconds, lms;
+float seconds;
+float pre_update_seconds;
+
 int readRegister(byte address);
 void writeRegister(byte address, byte data);
 
@@ -190,22 +194,28 @@ void init_MPU9250() {
 	writeRegister(GYRO_CONFIG, accel_config.raw);
 
 	END_SPI_MPU9250();
+
+	delay(10);
+
+	calibrate_Gyro();
+	calibrate_Accelerometer();
 }
 
-int count = 0;
+int dbg_count = 0;
 
 void update_MPU9250()
 {
-	UpdateGyro();
+	update_Gyro();
+	update_Accelerometer();
 
-	count++;
+	/*dbg_count++;
 	//Serial.printf("gx: %f\tgy: %f\tgz: %f\tax: %f\tay: %f\taz: %f\n", gyro_x, gyro_y, gyro_z, acc_x, acc_y, acc_z);
 
-	if (count > 100)
+	if (dbg_count > 100)
 	{
-		Serial.printf("%f, %f, %f, %f,%f,%f,%f,%f,%f\n", GetYawRate(), GetPitchRate(), GetRollRate(), GetYaw(), GetPitch(), GetRoll(), GetXAcc(), GetYAcc(), GetZAcc());
-		count = 0;
-	}
+		Serial.printf("%f, %f, %f, %f,%f,%f,%f,%f,%f,%f,%f\n", GetYawRate(), GetPitchRate(), GetRollRate(), GetYaw(), GetPitch(), GetRoll(), GetXAcc(), GetYAcc(), GetZAcc(), GetRollAcc(), GetPitchAcc());
+		dbg_count = 0;
+	}*/
 }
 
 #define GYRO_RAW_RATE_X (((int16_t)((readRegister(GYRO_XOUT_H) & 0xFF) << 8) | (int16_t)(readRegister(GYRO_XOUT_L) & 0xFF))/65536.0f)
@@ -222,17 +232,60 @@ float Yaw = 0.0f;
 float Pitch = 0.0f;
 float Roll = 0.0f;
 
+float YawRateCal = 0.0f;
+float PitchRateCal = 0.0f;
+float RollRateCal = 0.0f;
+
+float YawRate = 0.0f;
+float PitchRate = 0.0f;
+float RollRate = 0.0f;
+
 long last_gtime;
 
-void UpdateGyro()
+void calibrate_Gyro()
 {
-	float seconds = ((float)(micros()-last_gtime)/1000000.0f);
-
-	Yaw += GetYawRate() * seconds;
-	Pitch += GetPitchRate() * seconds;
-	Roll += GetRollRate() * seconds;
+	float start_time = millis();
 	
-	last_gtime = micros();
+	float YawRateSum = 0.0f;
+	float PitchRateSum = 0.0f;
+	float RollRateSum = 0.0f;
+
+	long count = 0;
+	
+	while((millis() - start_time) < 1000.0f)
+	{
+		update_Gyro();
+
+		YawRateSum += YawRate;
+		PitchRateSum += PitchRate;
+		RollRateSum += RollRate;
+
+		count++;
+	}
+
+	YawRateCal =  YawRateSum / (float)count;
+	PitchRateCal = PitchRateSum / (float)count;
+	RollRateCal = RollRateSum / (float)count;
+
+	Yaw = 0.0f;
+	Pitch = 0.0f;
+	Roll = 0.0f;
+}
+
+void update_Gyro()
+{
+	YawRate = ((float)GYRO_RAW_RATE_Z) * (float)(2 << gyro_fs) * GYRO_MULTIPLIER - YawRateCal;
+	PitchRate = ((float)GYRO_RAW_RATE_Y) * (float)(2 << gyro_fs) * GYRO_MULTIPLIER - PitchRateCal;
+	RollRate = ((float)GYRO_RAW_RATE_X) * (float)(2 << gyro_fs) * GYRO_MULTIPLIER - RollRateCal;
+	
+	Yaw += YawRate * seconds;
+	Pitch += PitchRate * seconds;
+	Roll += RollRate * seconds;
+
+	pre_update_seconds = seconds;
+	microseconds = (float)micros() - lms;
+	lms = micros();
+	seconds = microseconds / 1000000.0f;
 }
 
 float GetYaw()
@@ -251,28 +304,96 @@ float GetRoll()
 }
 
 float GetYawRate() {
-	return ((float)GYRO_RAW_RATE_X) * (float)(2 << gyro_fs) * GYRO_MULTIPLIER;
+	return YawRate;
 }
 
 float GetPitchRate() {
-	return ((float)GYRO_RAW_RATE_Y) * (float)(2 << gyro_fs) * GYRO_MULTIPLIER;
+	return PitchRate;
 }
 
 float GetRollRate() {
-	return ((float)GYRO_RAW_RATE_Z) * (float)(2 << gyro_fs) * GYRO_MULTIPLIER;
+	return RollRate;
+}
+
+void ClearAngles(float yaw, float pitch, float roll)
+{
+	Yaw = yaw;
+ 	Pitch = pitch;
+	Roll = roll;
+
+	seconds = 0.0f;
+	lms = micros();
 }
 
 //Accelerometer
+
+float XAcc = 0.0f;
+float YAcc = 0.0f;
+float ZAcc = 0.0f;
+
+float XAccCal = 0.0f;
+float YAccCal = 0.0f;
+float ZAccCal = 0.0f;
+
+float PitchAcc = 0.0f;
+float RollAcc = 0.0f;
+
+void calibrate_Accelerometer()
+{
+	float start_time = millis();
+	
+	float XAccSum = 0.0f;
+	float YAccSum = 0.0f;
+	float ZAccSum = 0.0f;
+
+	long count = 0;
+	
+	while((millis() - start_time) < 1000.0f)
+	{
+		update_Accelerometer();
+
+		XAccSum += XAcc;
+		YAccSum += YAcc;
+		ZAccSum += ZAcc-1.0f;
+
+		count++;
+	}
+
+	XAccCal =  XAccSum / (float)count;
+	YAccCal = YAccSum / (float)count;
+	ZAccCal = ZAccSum / (float)count;
+}
+
+void update_Accelerometer()
+{
+	XAcc = ((float)ACCEL_RAW_Y) * (float)(2 << accel_fs) * ACC_MULTIPLIER - XAccCal;
+	YAcc = ((float)ACCEL_RAW_Z) * (float)(2 << accel_fs) * ACC_MULTIPLIER - YAccCal;
+	ZAcc = ((float)ACCEL_RAW_X) * (float)(2 << accel_fs) * ACC_MULTIPLIER - ZAccCal;
+
+	RollAcc = degrees(atan2f(-XAcc, ZAcc));
+	PitchAcc = degrees(atan2f(-YAcc, ZAcc));
+}
+
+float GetPitchAcc()
+{
+	return PitchAcc;
+}
+
+float GetRollAcc()
+{
+	return RollAcc;
+}
+
 float GetXAcc() {
-	return ((float)ACCEL_RAW_X) * (float)(2 << accel_fs) * ACC_MULTIPLIER;
+	return XAcc;
 }
 
 float GetYAcc() {
-	return ((float)ACCEL_RAW_Y) * (float)(2 << accel_fs) * ACC_MULTIPLIER;
+	return YAcc;
 }
 
 float GetZAcc() {
-	return ((float)ACCEL_RAW_Z) * (float)(2 << accel_fs) * ACC_MULTIPLIER;
+	return ZAcc;
 }
 
 int readRegister(byte address)
