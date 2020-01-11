@@ -21,13 +21,13 @@ prop3      prop4
 
 */
 
-#include "WProgram.h"
 #include "MPU9250.h"
 #include "RadioReciever.h"
 #include "PID.h"
 #include "Motors.h"
 #include "Debug.h"
 #include "wiring.h"
+#include "wprogram.h"
 
 #include "unit_tests.h"
 #ifdef TEENSYQUADCOPTER
@@ -91,7 +91,7 @@ void setup() {
 	PitchPID.init_PID();
 	RollPID.init_PID();
 
-	YawPID.Set_Constants  (0.00f, 0.0f, 1200.0f);
+	YawPID.Set_Constants  (0.70f, 0.0f, 1200.0f);
 	PitchPID.Set_Constants(0.59f, 0.0f, 1200.0f);
 	RollPID.Set_Constants (0.59f, 0.0f, 1200.0f);
 
@@ -123,8 +123,6 @@ int resets = 0;
 
 void loop() {
 
-	loop_time = micros();
-
 	//update sensors and radio		
 	//update_LIS3DH();
 	update_MPU9250();
@@ -135,14 +133,14 @@ void loop() {
 	main_roll = roll_kalman.Filter(Get_Acc_Roll(), GetRollRate() * GetGyroElapsedTime());
 	*/
 
-	/*
-	main_pitch = ((double)(main_pitch + GetPitchRate()*GetGyroElapsedTime()) * 0.999) + (double)Get_Acc_Pitch()*0.001;
-	main_roll = ((double)(main_roll + GetRollRate()*GetGyroElapsedTime()) * 0.999) + (double)Get_Acc_Roll() * 0.001;
-	*/
+
+	
+	main_pitch = ((double)(main_pitch + GetPitchRate()*getGyroTime()) * 0.9999) + (double)GetPitchAcc()*0.0001;
+	main_roll = ((double)(main_roll + GetRollRate()*getGyroTime()) * 0.9999) + (double)GetRollAcc() * 0.0001;
 
 
-	main_pitch = GetPitch();// (main_pitch + GetPitchRate()*egyrotime);// +Get_Acc_Pitch()*0.000f;
-	main_roll = GetRoll();// (main_roll + GetRollRate()*egyrotime);// +Get_Acc_Roll()*0.0001f;
+	//main_pitch = GetPitch();// (main_pitch + GetPitchRate()*egyrotime);// +Get_Acc_Pitch()*0.000f;
+	//main_roll = GetRoll();// (main_roll + GetRollRate()*egyrotime);// +Get_Acc_Roll()*0.0001f;
 
 
 	/*angle_reset_count++;
@@ -205,7 +203,7 @@ void loop() {
 		update_Debug_ARMED();
 
 		//update PID loops
-		yaw_angle += GetChannel(RUD_YAW) / 1500.0f;
+		yaw_angle += GetChannel(RUD_YAW) / 1000.0f;
 		yaw_out = YawPID.update_PID(GetYaw(), yaw_angle);
 		pitch_out = PitchPID.update_PID(main_pitch, -GetChannel(ELEV_PITCH) / 4.0f);
 		roll_out = RollPID.update_PID(main_roll, GetChannel(AIL_ROLL) / 4.0f);
@@ -273,20 +271,28 @@ void loop() {
 	//////                       ///////
 	//////        display        ///////
 	//////                       ///////
-	count++;
+	
+	//count++;
 	if (count > 100)
 	{
 		count = 0;
 		//Serial.printf("%f, %f, %f, %f, ", motor_output[0], motor_output[1], motor_output[2], motor_output[3]);
-		Serial.printf("%f, %f, %f\n", GetYaw(), GetPitch(), GetRoll());
 		//Serial.printf("%f, ", 1.0f / ((loop_time - l_loop_time) / 1000000.0f));
-
+		//Serial.printf("%f, %f, %f, ", GetXAcc(), GetYAcc(), GetZAcc());
+		//Serial.printf("%f, %f, ", GetPitchAcc(), GetRollAcc());
+		//Serial.printf("%f, %f, %f\n", GetYaw(), GetPitch(), GetRoll());
+		//Serial.printf("%f, %f, %f\n", GetYaw(), main_pitch, main_roll);
+		Serial.printf("%f, %f, ", GetPitchAcc(), GetRollAcc());
+		Serial.printf("%f, %f, ", GetPitch(), GetRoll());
+		Serial.printf("%f, %f\n", main_pitch, main_roll);
+		
 		//Serial.printf("%f, %f, %f, 00, %f, %f, %f, 00, %d, %d, %d\n", GetYaw(), GetPitch(), GetRoll(), get_cal_x(), get_cal_y(), get_cal_z(), getX(), getY(), getZ());
 		//Serial.printf("%f, %f, ", Get_Acc_Pitch(), Get_Acc_Roll());
 		//Serial.printf("%f, %f, %f, %f, ", GetChannel(THROTTLE), GetChannel(RUD_YAW), GetChannel(AIL_ROLL), GetChannel(ELEV_PITCH));
 		//Serial.printf("%f, %f\n", GetRoll(), GetPitch());
 	}
 	l_loop_time = loop_time;
+	loop_time = micros();
 }
 
 void arm()

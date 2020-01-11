@@ -4,11 +4,8 @@
 #ifndef _MPU9250_h
 #define _MPU9250_h
 
-#if defined(ARDUINO) && ARDUINO >= 100
+#include "PID.h"//lol
 #include "wprogram.h"
-#else
-#include "WProgram.h"
-#endif
 
 #include <SPI.h>
 
@@ -23,6 +20,8 @@ void calibrate_Gyro();
 float GetYaw();
 float GetPitch();
 float GetRoll();
+
+float getGyroTime();
 
 float GetYawRate();
 float GetPitchRate();

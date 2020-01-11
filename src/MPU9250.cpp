@@ -11,7 +11,7 @@ Author:	Michael Langford
 
 #define CS                         10
 #define CLOCK_SPEED                1000000
-#define CALIBRATE_TIME             1000
+#define CALIBRATE_TIME             2000
 
 //register definitions
 #define SELF_TEST_X_GYRO 0x00
@@ -174,6 +174,11 @@ float microseconds, lms;
 float seconds;
 float pre_update_seconds;
 
+float getGyroTime()
+{
+	return pre_update_seconds;
+}
+
 int readRegister(byte address);
 void writeRegister(byte address, byte data);
 
@@ -274,9 +279,9 @@ void calibrate_Gyro()
 
 void update_Gyro()
 {
-	YawRate = ((float)GYRO_RAW_RATE_Z) * (float)(2 << gyro_fs) * GYRO_MULTIPLIER - YawRateCal;
-	PitchRate = ((float)GYRO_RAW_RATE_Y) * (float)(2 << gyro_fs) * GYRO_MULTIPLIER - PitchRateCal;
-	RollRate = ((float)GYRO_RAW_RATE_X) * (float)(2 << gyro_fs) * GYRO_MULTIPLIER - RollRateCal;
+	YawRate = ((float)GYRO_RAW_RATE_Z) * (float)(2 << gyro_fs) * 2.0f * GYRO_MULTIPLIER - YawRateCal;
+	PitchRate = ((float)GYRO_RAW_RATE_Y) * (float)(2 << gyro_fs) * 2.0f * GYRO_MULTIPLIER - PitchRateCal;
+	RollRate = ((float)GYRO_RAW_RATE_X) * (float)(2 << gyro_fs) * 2.0f * GYRO_MULTIPLIER - RollRateCal;
 	
 	Yaw += YawRate * seconds;
 	Pitch += PitchRate * seconds;
@@ -353,8 +358,8 @@ void calibrate_Accelerometer()
 		update_Accelerometer();
 
 		XAccSum += XAcc;
-		YAccSum += YAcc;
-		ZAccSum += ZAcc-1.0f;
+		YAccSum += YAcc-1.0f;
+		ZAccSum += ZAcc;
 
 		count++;
 	}
@@ -370,8 +375,8 @@ void update_Accelerometer()
 	YAcc = ((float)ACCEL_RAW_Z) * (float)(2 << accel_fs) * ACC_MULTIPLIER - YAccCal;
 	ZAcc = ((float)ACCEL_RAW_X) * (float)(2 << accel_fs) * ACC_MULTIPLIER - ZAccCal;
 
-	RollAcc = degrees(atan2f(-XAcc, ZAcc));
-	PitchAcc = degrees(atan2f(-YAcc, ZAcc));
+	RollAcc = degrees(atan2f(XAcc, YAcc));
+	PitchAcc = degrees(atan2f(-ZAcc, YAcc));
 }
 
 float GetPitchAcc()
